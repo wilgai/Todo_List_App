@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if item %}
+
+    <form class="d-flex " method="POST">
+        {%csrf_token %}
+        
+         
+          <input  class="form-control me-5" type="search" placeholder="{{item.item}}"
+            value="{{item.item}}" arial-label="Search" name="item">
+       
+        <div class="form-group">
+            <input type="hidden" value="{{ item.completed }}" name="completed">
+        </div>
+       
+        <br>
+        <button type="submit" class="btn btn-primary">Save Task</button>
+      </form>
+    
+     
+
+      
+    {% endif %}
+{% endblock %}

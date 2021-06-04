@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="close me-auto" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endfor %}
+{% endif %}
+
+{% if all_items %}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th >Task</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+    {% for things in all_items %}
+      {% if things.completed %}
+          <tr class="table-secondary">
+              <td style="text-decoration: line-through;">{{things.item}}</td>
+              <td class="text-center" ><a style="text-decoration: none;" href="{% url 'uncross' things.id %}">Completed</a></td>
+              <td class="text-center">
+                  <button class="btn "><a style="text-decoration: none; color: black;" href="{% url 'edit' things.id %}" class="fa fa-pencil"></a></button> 
+                  <button class="btn "><a style="text-decoration: none; color: red;" href="{% url 'delete' things.id%}" class="fa fa-trash"></a></button>
+            </td>
+              
+          </tr>
+      {% else %}
+        <tr>
+            <td >{{things.item}}</td>
+            <td class="text-center"><a style="text-decoration: none;" href="{% url 'cross_off' things.id %}">Incomplete</a></td>
+            <td class="text-center">
+                <button class="btn "><a style="text-decoration: none; color: black;" href="{% url 'edit' things.id %}" class="fa fa-pencil"></a></button>
+                <button class="btn "><a style="text-decoration: none; color: red;" href="{% url 'delete' things.id%}" class="fa fa-trash"></a></button>
+            </td>
+          
+        </tr>
+
+      {% endif %}
+
+       
+    {% endfor %}
+</table>
+{% endif %}
+<!-- Modal -->
+{% endblock %}
